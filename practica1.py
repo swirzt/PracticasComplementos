@@ -206,17 +206,17 @@ def lee_entrada_2():
     print('leidas {0} lineas'.format(count))
 
 
-def lee_archivo(file_path):
-    print('leyendo archivo: {0}'.format(file_path))
-    count = 0
+# def lee_archivo(file_path):
+#     print('leyendo archivo: {0}'.format(file_path))
+#     count = 0
 
-    with open(file_path, 'r') as f:
-        first_line = f.readline()
-        print('primer linea: [{}]'.format(first_line))
-        for line in f:
-            count = count + 1
-            # print 'Linea: [{0}]'.format(line)
-    print('leidas {0} lineas'.format(count))
+#     with open(file_path, 'r') as f:
+#         first_line = f.readline()
+#         print('primer linea: [{}]'.format(first_line))
+#         for line in f:
+#             count = count + 1
+#             print 'Linea: [{0}]'.format(line)
+#     print('leidas {0} lineas'.format(count))
 
 
 def main():
