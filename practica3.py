@@ -90,13 +90,20 @@ def esCaminoHamiltoniano(grafo, camino):
     Retorno:
     -boolean: camino es camino hamiltoniano en grafo
     """
-    vertices = [0] * len(grafo[0])
+    cantV =  len(grafo[0])
     largoCamino = len(camino)
-    if largoCamino < len(grafo[0])-1:
+    if cantV == 1:
+        if camino == grafo[1] and largoCamino != 0:
+            return True
+        return False
+    vertices = [0] * cantV
+    if largoCamino < cantV-1:
         return False  # Un camino hamiltoniano tiene n-1 aristas y un ciclo tiene n
     for e in range(largoCamino):
         x = camino[e][0]
         y = camino[e][1]
+        if not x in grafo[0] or not y in grafo[0]:
+            return False
         vertices[grafo[0].index(x)] += 1
         vertices[grafo[0].index(y)] += 1
         if x == y:
@@ -135,7 +142,15 @@ Retorno:
     boolean: ciclo es ciclo hamiltoniano en grafo
 
 """
-    pass
+    if len(ciclo) == 0:
+        if grafo[0] == []:
+            return True
+        else:
+            return False
+    if esCaminoHamiltoniano(grafo, ciclo):
+        if ciclo[len(ciclo)-1][1] == ciclo[0][0]:
+            return True
+    return False
 
 
 def tieneCaminoEuleriano(grafo):
@@ -149,7 +164,21 @@ def tieneCaminoEuleriano(grafo):
             boolean: grafo tiene un camino euleriano
 
 """
-    pass
+    v = len(grafo[0])
+    grados = [0 for x in range(v)]
+    for x in range(v):
+        for t,z in grafo[1]:
+            if t == grafo[0][x]:
+                grados[x] += 1
+            if z == grafo[0][x]:
+                grados[x] += 1
+    impares = 0
+    for k in grados:
+        if k%2 == 1:
+            impares += 1
+    if impares == 0 or impares == 2:
+        return True
+    return False
 
 
 def cicloEuleriano(grafo):
@@ -168,11 +197,31 @@ def cicloEuleriano(grafo):
     # Recursos:
     # http://caminoseuler.blogspot.com.ar/p/algoritmo-leury.html
     # http://www.geeksforgeeks.org/fleurys-algorithm-for-printing-eulerian-path/
-    pass
+
+    v = len(grafo[0])
+    aristas = grafo[1]
+    grados = [0 for x in range(v)]
+    for x in range(v):
+        for t,z in grafo[1]:
+            if t == grafo[0][x]:
+                grados[x] += 1
+            if z == grafo[0][x]:
+                grados[x] += 1
+    impares = 0
+    for k in grados:
+        if k%2 == 1:
+            impares += 1
+    if impares != 0:
+        return None
+    ciclo = [aristas[0]]
+    aristas.remove(aristas[0])
+
+
+
 
 
 def main():
-    pass
+    cicloEuleriano((['a', 'b', 'c', 'd'], [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'a')]))
 
 
 if __name__ == '__main__':
